@@ -13,6 +13,11 @@ use App\Controller\AppController;
 class SurveysController extends AppController
 {
 
+    public function initialize()
+    {
+        parent::initialize();
+        $this->Auth->allow(['getServeysByUserId']);
+    }
     /**
      * Index method
      *
@@ -115,4 +120,23 @@ class SurveysController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+    
+    public function getSurveysByUserId($id = null) 
+    {
+        $this->paginate = [
+            'contain' => ['Users']
+        ];
+        //debug($id);die;
+        //Récupérer les sondages du user donné
+        $query = $this->Surveys->find('all')
+                ->where(['user_id'=>$id])
+                ->contain(['responses']);
+
+        //Envoyer vers la vue OU refiriger
+        $this->set(compact('surveys'));
+    }
+    
+       
+    
+    
 }

@@ -20,7 +20,11 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="<?= $this->Url->build([
+            'controller'=>'Surveys',
+            'action'=>'getSurveysByUserId',
+            1
+        ]); ?>">
             <button type="button" class="btn btn-light"><?= __('Mes sondages') ?></button>
         </a>
       </li>
